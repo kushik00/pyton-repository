@@ -27,6 +27,11 @@ if image is not None:
 
     contours, _ = cv2.findContours(mask_final, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
+    colour_first = cv2.putText(image, 'pink', (70, 160), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+    colour_secound = cv2.putText(image, 'yellow', (200, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+    colour_last = cv2.putText(image, 'purple', (200, 220), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+
     for cnt in contours:
         if cv2.contourArea(cnt) > 600:
             x, y, w, h = cv2.boundingRect(cnt)
@@ -35,14 +40,11 @@ if image is not None:
 
     cv2.imwrite('./photos/result.jpg', image)
 
-    colour_first = cv2.putText(image, 'pink', (70, 160), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-    colour_secound = cv2.putText(image, 'yellow', (200, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-    colour_last = cv2.putText(image, 'purple', (200, 220), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
     cv2.imshow("image hsv", result)
     cv2.imshow("image", image)
 
     cv2.waitKey(0)
+
 
 
 
