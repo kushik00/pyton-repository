@@ -1,5 +1,3 @@
-from os.path import split
-
 import cv2
 import numpy as np
 
@@ -45,6 +43,7 @@ if image is not None:
     cv2.imshow("image", image)
 
     cv2.waitKey(0)
+
 
 
 
