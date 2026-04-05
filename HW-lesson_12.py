@@ -45,7 +45,7 @@ model.compile(
 
 history = model.fit(
     train_ds,
-    epochs=15, # Можна трохи збільшити кількість епох для глибшої мережі
+    epochs=15, 
     validation_data=test_ds
 )
 
