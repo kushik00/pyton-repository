@@ -39,10 +39,37 @@ while True:
         frame = cv2.resize(frame, (new_w, new_h))
 
 
-    result = model(frame, conf_thresh=CONF_THRESHOLD, verbose=False)
+    result = model(frame, conf=CONF_THRESHOLD, verbose=False)
 
     people_count = 0
     psevdo_id = 0
 
     PERSON_CLASS_ID = 0
-    
+
+    for r in result:
+        boxes = r.boxes
+        if boxes is None:
+            continue
+
+        for box in boxes:
+            cls = int(box.cls[0])
+            conf = float(box.conf[0])
+
+            x1, y1, x2, y2 = map(int, box.xyxy[0])
+
+            if cls == PERSON_CLASS_ID:
+                people_count += 1
+                psevdo_id += 1
+
+
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 1)
+                label = f'ID: {psevdo_id}\nConfidence: {conf:.2f}'
+                cv2.putText(frame, label, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 1)
+    cv2.putText(frame, f'people count: {people_count}', (20,40), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 0, 0), 1)
+    cv2.imshow('yolo', frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
