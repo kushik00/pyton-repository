@@ -62,14 +62,4 @@ while True:
                 speed_m = (dist_pix / PPM) * fps
                 speed_kmh = speed_m * 3.6
 
-
-    car_frame = result[0].plot()
-
-
-    frame_count += 1
-    cv2.imshow('stream', car_frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-cap.release()
-cv2.destroyAllWindows()
+                cv2.putText(frame, f'id:{track_id}:{int(speed_kmh)}km/h', (x,y)
